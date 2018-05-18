@@ -234,7 +234,6 @@ extern AVCodec ff_prores_encoder;
 extern AVCodec ff_prores_decoder;
 extern AVCodec ff_prores_aw_encoder;
 extern AVCodec ff_prores_ks_encoder;
-extern AVCodec ff_prores_lgpl_decoder;
 extern AVCodec ff_psd_decoder;
 extern AVCodec ff_ptx_decoder;
 extern AVCodec ff_qdraw_decoder;
@@ -432,12 +431,12 @@ extern AVCodec ff_mp2_encoder;
 extern AVCodec ff_mp2_decoder;
 extern AVCodec ff_mp2float_decoder;
 extern AVCodec ff_mp2fixed_encoder;
-extern AVCodec ff_mp3_decoder;
 extern AVCodec ff_mp3float_decoder;
-extern AVCodec ff_mp3adu_decoder;
+extern AVCodec ff_mp3_decoder;
 extern AVCodec ff_mp3adufloat_decoder;
-extern AVCodec ff_mp3on4_decoder;
+extern AVCodec ff_mp3adu_decoder;
 extern AVCodec ff_mp3on4float_decoder;
+extern AVCodec ff_mp3on4_decoder;
 extern AVCodec ff_mpc7_decoder;
 extern AVCodec ff_mpc8_decoder;
 extern AVCodec ff_nellymoser_encoder;
@@ -453,6 +452,8 @@ extern AVCodec ff_ra_144_encoder;
 extern AVCodec ff_ra_144_decoder;
 extern AVCodec ff_ra_288_decoder;
 extern AVCodec ff_ralf_decoder;
+extern AVCodec ff_sbc_encoder;
+extern AVCodec ff_sbc_decoder;
 extern AVCodec ff_shorten_decoder;
 extern AVCodec ff_sipr_decoder;
 extern AVCodec ff_smackaud_decoder;
@@ -661,7 +662,11 @@ extern AVCodec ff_pcm_mulaw_at_encoder;
 extern AVCodec ff_pcm_mulaw_at_decoder;
 extern AVCodec ff_qdmc_at_decoder;
 extern AVCodec ff_qdm2_at_decoder;
+extern AVCodec ff_libaom_av1_decoder;
+extern AVCodec ff_libaom_av1_encoder;
 extern AVCodec ff_libcelt_decoder;
+extern AVCodec ff_libcodec2_encoder;
+extern AVCodec ff_libcodec2_decoder;
 extern AVCodec ff_libfdk_aac_encoder;
 extern AVCodec ff_libfdk_aac_decoder;
 extern AVCodec ff_libgsm_encoder;
@@ -755,7 +760,12 @@ extern AVCodec ff_vp9_cuvid_decoder;
 extern AVCodec ff_vp9_mediacodec_decoder;
 extern AVCodec ff_vp9_vaapi_encoder;
 
+// The iterate API is not usable with ossfuzz due to the excessive size of binaries created
+#if CONFIG_OSSFUZZ
+extern AVCodec * codec_list[];
+#else
 #include "libavcodec/codec_list.c"
+#endif
 
 static AVOnce av_codec_static_init = AV_ONCE_INIT;
 static void av_codec_init_static(void)
